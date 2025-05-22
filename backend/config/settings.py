@@ -38,7 +38,10 @@ ALLOWED_HOSTS = ["*"]
 
 INSTALLED_APPS = [
     # perso apps
+    'apps.users',
     'rest_framework',
+    'rest_framework_simplejwt',
+    'corsheaders',
 
     # default apps
     'django.contrib.admin',
@@ -57,6 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -148,4 +152,8 @@ REST_FRAMEWORK = {
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME" : timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME" : timedelta(days=1),
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
+
+CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOWS_CREDENTIALS = True
