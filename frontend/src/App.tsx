@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import DashBoard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MainLayout from "./Layouts/MainLayout";
 
 function Logout() {
   localStorage.clear();
@@ -20,30 +21,30 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route element={<MainLayout />}>
+          {/* Public Routes */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterAndLogout />} />
+          <Route path="/logout" element={<Logout />} />
 
-        {/* Public Routes */}
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<RegisterAndLogout />} />
-        <Route path="/logout" element={<Logout />} />
-
-        {/* Protected Routes */}
-        <Route path="/" element={
-          <ProtectedRoute>
-            <Navigate to="/dashboard" />
-          </ProtectedRoute>
-        } />
-        <Route
-          path="/dashboard"
-          element={
+          {/* Protected Routes */}
+          <Route path="/" element={
             <ProtectedRoute>
-              <DashBoard />
+              <Navigate to="/dashboard" />
             </ProtectedRoute>
-          }
-        />
+          } />
+          <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <DashBoard />
+              </ProtectedRoute>
+            }
+          />
 
-        {/* Catch All route in 404 */}
-        <Route path="*" element={<NotFound />} />
-
+          {/* Catch All route in 404 */}
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
