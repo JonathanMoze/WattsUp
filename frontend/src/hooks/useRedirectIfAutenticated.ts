@@ -7,10 +7,10 @@ export const redirectIfAuthenticated = () => {
     const navigate : NavigateFunction = useNavigate();
 
     useEffect(() => {
-        const token : string|null = localStorage.getItem(ACCESS_TOKEN);
+        const token = localStorage.getItem(ACCESS_TOKEN);
         if (token) {
             try {
-                const decoded : number|undefined = jwtDecode(token).exp;
+                const decoded = jwtDecode(token).exp;
                 const now : number = Date.now() / 1000;
                 if(decoded && decoded > now) {
                     navigate("/dashboard");

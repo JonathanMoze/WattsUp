@@ -1,9 +1,8 @@
 import { Navigate } from "react-router-dom";
 import { jwtDecode, type JwtPayload } from "jwt-decode";
-import api from "../api";
 import { REFRESH_TOKEN, ACCESS_TOKEN } from "../constants";
 import { useState, useEffect, type ReactNode} from "react";
-import type { AxiosResponse } from "axios";
+import api from "../api";
 
 type Props = {
     children : ReactNode;
@@ -23,9 +22,9 @@ function ProtectedRoute({ children } : Props) {
     }, []);
 
     const refreshToken = async () => {
-        const refreshToken: string | null = localStorage.getItem(REFRESH_TOKEN);
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN);
         try {
-            const res : AxiosResponse<any, any> = await api.post("/api/token/refresh/", { refresh: refreshToken, });
+            const res = await api.post("/api/token/refresh/", { refresh: refreshToken, });
             if (res.status === 200) {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 setIsAuthorized(true)
@@ -39,13 +38,13 @@ function ProtectedRoute({ children } : Props) {
     }
 
     const auth = async () => {
-        const token: string | null = localStorage.getItem(ACCESS_TOKEN)
+        const token = localStorage.getItem(ACCESS_TOKEN)
         if (!token) {
             setIsAuthorized(false);
             return
         }
         const decoded: JwtPayload = jwtDecode(token);
-        const tokenExpiration: number | undefined = decoded.exp;
+        const tokenExpiration = decoded.exp;
         const now: number = Date.now() / 1000;
 
         if (tokenExpiration && tokenExpiration < now) {

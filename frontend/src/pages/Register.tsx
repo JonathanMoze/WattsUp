@@ -1,4 +1,4 @@
-import { redirectIfAuthenticated } from "../hooks/redirectIfAutenticated";
+import { redirectIfAuthenticated } from "../hooks/useRedirectIfAutenticated";
 
 function Register() {
     redirectIfAuthenticated();
