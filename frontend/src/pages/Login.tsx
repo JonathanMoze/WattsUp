@@ -1,11 +1,11 @@
-import { redirectIfAuthenticated } from "../hooks/useRedirectIfAutenticated";
+import { useRedirectIfAuthenticated } from "../hooks/useRedirectIfAutenticated";
 import InputField from "../components/InputField";
 import Button from "../components/Button";
 import AuthCard from "../components/AuthCard";
 import background from "../assets/bg.jpg"
 
 function Login() {
-    redirectIfAuthenticated();
+    useRedirectIfAuthenticated();
     return (
         <div
             className="min-h-screen bg-cover bg-center"

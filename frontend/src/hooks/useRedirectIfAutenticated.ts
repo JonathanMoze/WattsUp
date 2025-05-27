@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { ACCESS_TOKEN } from "../constants";
 import { jwtDecode } from "jwt-decode";
 
-export const redirectIfAuthenticated = () => {
+export const useRedirectIfAuthenticated = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -15,7 +15,9 @@ export const redirectIfAuthenticated = () => {
                 if(decoded && decoded > now) {
                     navigate("/dashboard");
                 }
-            } catch (error) {}
+            } catch (error) {
+                console.log(error);
+            }
         }
     }, [navigate]);
 };

@@ -1,7 +1,7 @@
-import { redirectIfAuthenticated } from "../hooks/useRedirectIfAutenticated";
+import { useRedirectIfAuthenticated } from "../hooks/useRedirectIfAutenticated";
 
 function Register() {
-    redirectIfAuthenticated();
+    useRedirectIfAuthenticated();
     return (
         <div>   
             <h1>Register</h1>

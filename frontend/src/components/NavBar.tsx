@@ -18,7 +18,9 @@ const Navbar = () => {
             if (decoded && decoded > now) {
                 setIsAuthorized(true);
             }
-        } catch (error) { }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     const handleAuthButtonClick = () => {
