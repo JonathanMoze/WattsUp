@@ -23,7 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Authentication routes
-    path("api/users/", include("users.urls")),
+    path("api/user/", include("users.urls")),
     path("api/token/", include("tokens.urls")),
 ]
 
