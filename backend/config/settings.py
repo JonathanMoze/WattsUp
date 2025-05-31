@@ -39,6 +39,7 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     # perso apps
     'users',
+    'tokens',
     'rest_framework',
     'rest_framework_simplejwt',
     'corsheaders',
@@ -144,7 +145,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'tokens.authentication.CookiesJWTAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
