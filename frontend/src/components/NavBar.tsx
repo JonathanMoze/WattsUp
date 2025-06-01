@@ -1,6 +1,6 @@
 import Button from "./Button";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../hooks/useAuthContext";
 const Navbar = () => {
     const { isAuthenticated } = useAuth();
     const location = useLocation();

@@ -1,4 +1,4 @@
-import axios, { AxiosError } from "axios";
+import axios, { AxiosError, type AxiosResponse } from "axios";
 
 
 export const api = axios.create({
@@ -27,6 +27,7 @@ export const login = async (email: string, password: string) => {
         );
         return response.data.success;
     } catch (error) {
+        console.log(error);
         return false
     }
 
@@ -50,16 +51,20 @@ export const refresh_token = async () => {
         );
         return response.data.refreshed;
     } catch (error) {
+        console.log(error);
         return false
     }
 }
 
-export const call_refresh = async (error: AxiosError, func : Function) => {
+export const call_refresh = async (
+    error: AxiosError, 
+    func: () => Promise<AxiosResponse>
+) => {
     if (error.response && error.response.status === 401) {
         const token_refreshed = await refresh_token();
         if(token_refreshed) {
             const newResponse = await func();
-            return newResponse.data
+            return newResponse.data;
         }
     }
     return false;
@@ -74,6 +79,7 @@ export const logout = async () => {
         );
         return response.data.success;
     } catch (error) {
+        console.log(error);
         return false;
     }
 }
