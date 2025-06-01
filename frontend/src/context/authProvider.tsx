@@ -1,6 +1,7 @@
 import { useEffect, useState, type ReactNode } from "react";
-import { login, logout, is_authenticated } from "../api";
+import { login, logout, is_authenticated, call_refresh } from "../api";
 import { AuthContext } from "../hooks/useAuthContext";
+import axios from "axios";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<{email : string, username:string} | null>(null);
@@ -8,10 +9,21 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   // Optionnel : vérifier si l'utilisateur est déjà connecté (ex: via cookie/session)
   useEffect(() => {
     const checkAuth = async () => {
-      const data = await is_authenticated();
-      if(data) {
-        setUser({ email: data.email, username: data.username });
+      try{
+        console.log("chech Auth");
+        const data = await is_authenticated();
+        if(data) {
+          setUser({ email: data.email, username: data.username });
+        }
+      } catch(error) {
+        if(axios.isAxiosError(error)) {
+          const data = await call_refresh(error, is_authenticated)
+          if(data) {
+            setUser({ email: data.email, username: data.username });
+          }
+        }
       }
+      
     };
     checkAuth();
   }, []);

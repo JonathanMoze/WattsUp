@@ -7,9 +7,9 @@ type Props = {
 };
 
 function ProtectedRoute({ children }: Props) {
-  const { user } = useAuth();
+  const { isAuthenticated } = useAuth();
 
-  if (user === null) {
+  if (!isAuthenticated) {
     // Optionnel : tu peux afficher un loader ici si tu veux attendre la vérification
     return <Navigate to="/login" />;
   }

@@ -6,15 +6,6 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
 import MainLayout from "./Layouts/MainLayout";
 
-function Logout() {
-  localStorage.clear();
-  return <Navigate to="/login" />;
-}
-
-function RegisterAndLogout() {
-  localStorage.clear();
-  return <Register />
-}
 
 function App() {
 
@@ -24,8 +15,7 @@ function App() {
         <Route element={<MainLayout />}>
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<RegisterAndLogout />} />
-          <Route path="/logout" element={<Logout />} />
+          <Route path="/register" element={<Register />} />
 
           {/* Protected Routes */}
           <Route path="/" element={

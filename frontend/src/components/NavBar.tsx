@@ -1,14 +1,15 @@
-import Button from "./Button";
+import {Button} from "@/components/ui/button";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuthContext";
 const Navbar = () => {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated, logoutUser } = useAuth();
     const location = useLocation();
     const navigate = useNavigate();
-
-    const handleAuthButtonClick = () => {
+    const handleAuthButtonClick = async () => {
         if (isAuthenticated) {
-            navigate("/logout");
+            await logoutUser();
+            alert("You have been successfully logged out.");
+            navigate("/login");
         } else {
             if (location.pathname === "/login") {
                 navigate("/register");
@@ -20,7 +21,7 @@ const Navbar = () => {
 
     const getGoodButton = () => {
         if (isAuthenticated) {
-            return <Button onClick={handleAuthButtonClick} variant="gray">Logout</Button>
+            return <Button onClick={handleAuthButtonClick} variant="secondary">Logout</Button>
         }
         const label = location.pathname === "/login" ? "Register" : "Login";
         return <Button onClick={handleAuthButtonClick}>{label}</Button>
